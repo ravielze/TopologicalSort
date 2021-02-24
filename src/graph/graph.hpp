@@ -4,6 +4,7 @@
 #include <vector>
 #include <iterator>
 #include <map>
+#include "../common/RomanNumber.hpp"
 using namespace std;
 
 class Graph
@@ -21,7 +22,7 @@ public:
     void addNode(string key);
     void addDegree(string key);
     void printGraph();
-    Graph topologicalSort();
+    void topologicalSort();
 };
 
 #endif // __GRAPH_H__

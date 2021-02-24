@@ -47,25 +47,60 @@ void Graph::addDegree(string key)
 void Graph::printGraph()
 {
     map<string, vector<string>>::iterator itr;
+    cout << "Source\t\tTarget" << endl;
     for (itr = this->adjList.begin(); itr != this->adjList.end(); ++itr)
     {
-        cout << itr->first << '\t: ';
-        for (string t : itr->second)
+        cout << itr->first << "\t\t";
+        if (itr->second.size() > 0)
         {
-            cout << t << ' ';
+            for (string t : itr->second)
+            {
+                cout << t << ' ';
+            }
+        }
+        else
+        {
+            cout << "-";
         }
 
         cout << endl;
     }
 }
 
-Graph Graph::topologicalSort()
+void Graph::topologicalSort()
 {
     Graph copy((*this));
     copy.topologicalSortHelper(1);
-    return copy;
 }
 
 void Graph::topologicalSortHelper(int depth)
 {
+    vector<string> remove;
+    map<string, int>::iterator itr;
+    for (itr = this->degrees.begin(); itr != this->degrees.end(); ++itr)
+    {
+        if (itr->second == 0)
+        {
+            remove.push_back(itr->first);
+        }
+    }
+
+    if (remove.size() > 0)
+    {
+        cout << "Semester " << getRoman(depth) << "\t: ";
+        for (string key : remove)
+        {
+            cout << key << " ";
+            vector<string> tetangga = vector<string>(this->adjList[key]);
+            this->degrees.erase(key);
+            this->adjList.erase(key);
+            for (string t : tetangga)
+            {
+                this->degrees[t]--;
+            }
+        }
+        cout << endl;
+        depth++;
+        this->topologicalSortHelper(depth);
+    }
 }
