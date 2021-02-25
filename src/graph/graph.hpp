@@ -4,6 +4,7 @@
 #include <vector>
 #include <iterator>
 #include <map>
+#include <sstream>
 #include "../common/RomanNumber.hpp"
 using namespace std;
 
@@ -18,7 +19,7 @@ public:
     Graph();
     Graph(const vector<string> &lines);
     Graph(const Graph &other);
-    void addEdge(string source, string target);
+    void addEdge(string target, string source);
     void addNode(string key);
     void addDegree(string key);
     void printGraph();

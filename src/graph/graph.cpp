@@ -1,11 +1,44 @@
 #include "graph.hpp"
 
+void replaceAll(string &str, const string &from, const string &to)
+{
+    if (from.empty())
+        return;
+    size_t start_pos = 0;
+    while ((start_pos = str.find(from, start_pos)) != std::string::npos)
+    {
+        str.replace(start_pos, from.length(), to);
+        start_pos += to.length();
+    }
+}
+
 Graph::Graph()
 {
 }
 
 Graph::Graph(const vector<string> &lines)
 {
+    for (string each : lines)
+    {
+        istringstream ss(each);
+        string token;
+        size_t pos = 1;
+        vector<string> splitted;
+        while (ss >> token)
+        {
+            while ((pos = token.rfind(',')) != string::npos)
+            {
+                token.erase(pos, 1);
+            }
+            replaceAll(token, ".", "");
+            splitted.push_back(token);
+        }
+
+        for (size_t i = 1; i < splitted.size(); i++)
+        {
+            this->addEdge(splitted[i], splitted[0]);
+        }
+    }
 }
 
 Graph::Graph(const Graph &other)
@@ -14,12 +47,12 @@ Graph::Graph(const Graph &other)
     this->degrees = map<string, int>(other.degrees);
 }
 
-void Graph::addEdge(string source, string target)
+void Graph::addEdge(string target, string source)
 {
-    this->addNode(source);
     this->addNode(target);
-    this->adjList[source].push_back(target);
-    this->addDegree(target);
+    this->addNode(source);
+    this->adjList[target].push_back(source);
+    this->addDegree(source);
 }
 
 void Graph::addNode(string key)
