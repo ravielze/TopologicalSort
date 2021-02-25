@@ -2,23 +2,15 @@
 #include "reader/reader.hpp"
 using namespace std;
 
-int main()
+int main(int argc, char **argv)
 {
-    Graph x;
-    x.addEdge("ke1", "si1");
-    x.addEdge("ke2", "si2");
-    x.addEdge("ke3", "si3");
-    x.addEdge("ke3", "si1");
-    x.printGraph();
-    cout << endl;
-    Graph y(x);
-    y.addEdge("si1", "si4");
-    y.addEdge("si2", "si4");
-    y.addEdge("si3", "si4");
-    x.printGraph();
-    cout << endl;
-    y.printGraph();
-    cout << endl;
-    x.printGraph();
+    if (argc < 2)
+    {
+        cout << "Please input the name file in the second arguments." << endl;
+        return 1;
+    }
+    Reader r(argv[1]);
+    Graph g(r.getLines());
+    g.topologicalSort();
     return 0;
 }
