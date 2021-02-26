@@ -14,10 +14,12 @@ void replaceAll(string &str, const string &from, const string &to)
 
 Graph::Graph()
 {
+    this->tab = 8;
 }
 
 Graph::Graph(const vector<string> &lines)
 {
+    this->tab = 8;
     for (string each : lines)
     {
         istringstream ss(each);
@@ -43,6 +45,7 @@ Graph::Graph(const vector<string> &lines)
 
 Graph::Graph(const Graph &other)
 {
+    this->tab = other.tab;
     this->adjList = map<string, vector<string>>(other.adjList);
     this->degrees = map<string, int>(other.degrees);
 }
@@ -106,6 +109,11 @@ void Graph::topologicalSort()
     copy.topologicalSortHelper(1);
 }
 
+void Graph::setTab(int t) 
+{
+    this->tab = t;
+}
+
 void Graph::topologicalSortHelper(int depth)
 {
     vector<string> remove;
@@ -121,8 +129,17 @@ void Graph::topologicalSortHelper(int depth)
     if (remove.size() > 0)
     {
         cout << "Semester " << getRoman(depth) << "\t: ";
+        int count = this->tab;
+        if (count <= 1){
+            count = 1;
+        }
         for (string key : remove)
         {
+            if (count == 0){
+                cout << endl;
+                cout << "\t\t  ";
+                count = this->tab;
+            }
             cout << key << " ";
             vector<string> tetangga = vector<string>(this->adjList[key]);
             this->degrees.erase(key);
@@ -131,6 +148,7 @@ void Graph::topologicalSortHelper(int depth)
             {
                 this->degrees[t]--;
             }
+            count--;
         }
         cout << endl;
         depth++;

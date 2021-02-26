@@ -13,6 +13,7 @@ class Graph
 private:
     map<string, vector<string>> adjList;
     map<string, int> degrees;
+    int tab;
     void topologicalSortHelper(int depth);
 
 public:
@@ -24,6 +25,7 @@ public:
     void addDegree(string key);
     void printGraph();
     void topologicalSort();
+    void setTab(int t);
 };
 
 #endif // __GRAPH_H__

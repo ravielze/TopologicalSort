@@ -1,5 +1,8 @@
 .vscode
 
+# Testcase
+*.txt
+
 # Prerequisites
 *.d
 
