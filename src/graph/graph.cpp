@@ -36,9 +36,16 @@ Graph::Graph(const vector<string> &lines)
             splitted.push_back(token);
         }
 
-        for (size_t i = 1; i < splitted.size(); i++)
+        if (splitted.size() > 1)
         {
-            this->addEdge(splitted[i], splitted[0]);
+            for (size_t i = 1; i < splitted.size(); i++)
+            {
+                this->addEdge(splitted[i], splitted[0]);
+            }
+        }
+        else if (splitted.size() == 1)
+        {
+            this->noDependencies.push_back(splitted[0]);
         }
     }
 }
@@ -48,6 +55,7 @@ Graph::Graph(const Graph &other)
     this->tab = other.tab;
     this->adjList = map<string, vector<string>>(other.adjList);
     this->degrees = map<string, int>(other.degrees);
+    this->noDependencies = vector<string>(other.noDependencies);
 }
 
 void Graph::addEdge(string target, string source)
@@ -109,7 +117,7 @@ void Graph::topologicalSort()
     copy.topologicalSortHelper(1);
 }
 
-void Graph::setTab(int t) 
+void Graph::setTab(int t)
 {
     this->tab = t;
 }
@@ -130,12 +138,29 @@ void Graph::topologicalSortHelper(int depth)
     {
         cout << "Semester " << getRoman(depth) << "\t: ";
         int count = this->tab;
-        if (count <= 1){
+        if (count <= 1)
+        {
             count = 1;
+            this->tab = 1;
+        }
+        if (depth == 1 && this->noDependencies.size() > 0)
+        {
+            for (string key : this->noDependencies)
+            {
+                if (count == 0)
+                {
+                    cout << endl;
+                    cout << "\t\t  ";
+                    count = this->tab;
+                }
+                cout << key << " ";
+                count--;
+            }
         }
         for (string key : remove)
         {
-            if (count == 0){
+            if (count == 0)
+            {
                 cout << endl;
                 cout << "\t\t  ";
                 count = this->tab;
