@@ -122,6 +122,20 @@ void Graph::setTab(int t)
     this->tab = t;
 }
 
+bool find(vector<string> &list, string &smth)
+{
+
+    for (string t : list)
+    {
+        if (t.compare(smth) == 0)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void Graph::topologicalSortHelper(int depth)
 {
     vector<string> remove;
@@ -159,13 +173,17 @@ void Graph::topologicalSortHelper(int depth)
         }
         for (string key : remove)
         {
-            if (count == 0)
+            bool isNoDependencies = find(this->noDependencies, key);
+            if (count == 0 && !isNoDependencies)
             {
                 cout << endl;
                 cout << "\t\t  ";
                 count = this->tab;
             }
-            cout << key << " ";
+            if (!isNoDependencies)
+            {
+                cout << key << " ";
+            }
             vector<string> tetangga = vector<string>(this->adjList[key]);
             this->degrees.erase(key);
             this->adjList.erase(key);
