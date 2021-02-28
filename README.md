@@ -17,14 +17,21 @@ Pertama, Semua simpul akan dihitung derajat masuknya. Lalu, semua simpul yang be
 Lakukan ```cd src && g++ main.cpp ./reader/reader.cpp ./graph/graph.cpp ./common/RomanNumber.cpp```
 
 ### Windows
+Lakukan compile terlebih dahulu jika belum memiliki binary files/executables.
+
 Lakukan ```topoSort.exe <nama file> <jumlah kuliah per baris>```
-Contoh: ```topoSort.exe ../test/test1.txt 5```
-<nama file>: tempat ke file bersangkutan
-<jumlah kuliah per baris>: penulisan per baris, untuk kerapian
+
+> Contoh: ```topoSort.exe ../test/test1.txt 5```
+
+> <nama file>: tempat ke file bersangkutan
+> <jumlah kuliah per baris>: penulisan per baris, untuk kerapian
 
 ### Linux
+Lakukan compile terlebih dahulu jika belum memiliki binary files/executables.
+
 Sama seperti windows hanya saja ganti topoSort.exe menjadi ./topoSort
-Contoh: ```./topoSort ../test/test1.txt 5```
+
+> Contoh: ```./topoSort ../test/test1.txt 5```
 
 ## Identitas Pembuat
 Program ini dibuat oleh [Steven Nataniel](https://github.com/ravielze) untuk menuntaskan tugas kecil 2 dari mata kuliah IF2211 Strategi Algoritma
