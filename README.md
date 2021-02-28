@@ -23,8 +23,8 @@ Lakukan ```topoSort.exe <nama file> <jumlah kuliah per baris>```
 
 > Contoh: ```topoSort.exe ../test/test1.txt 5```
 
-> <nama file>: tempat ke file bersangkutan
-> <jumlah kuliah per baris>: penulisan per baris, untuk kerapian
+> nama file: tempat ke file bersangkutan
+> jumlah kuliah per baris: penulisan per baris, untuk kerapian
 
 ### Linux
 Lakukan compile terlebih dahulu jika belum memiliki binary files/executables.
